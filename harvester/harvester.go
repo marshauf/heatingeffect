@@ -6,8 +6,8 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/codegangsta/cli"
-	"github.com/gophergala/heatingeffect/chillingeffects"
-	"github.com/gophergala/heatingeffect/common"
+	"github.com/marshauf/heatingeffect/chillingeffects"
+	"github.com/marshauf/heatingeffect/common"
 	mgo "gopkg.in/mgo.v2"
 )
 

@@ -7,13 +7,13 @@ import (
 	"strconv"
 	"strings"
 
-	common "github.com/gophergala/heatingeffect/common"
+	common "github.com/marshauf/heatingeffect/common"
 
 	"github.com/PuerkitoBio/goquery"
 	log "github.com/Sirupsen/logrus"
 	"github.com/codegangsta/cli"
-	"github.com/gophergala/heatingeffect/chillingeffects"
 	"github.com/iron-io/iron_go/worker"
+	"github.com/marshauf/heatingeffect/chillingeffects"
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/gophergala/heatingeffect/common"
+	"github.com/marshauf/heatingeffect/common"
 	mgo "gopkg.in/mgo.v2"
 	"html/template"
 	"log"

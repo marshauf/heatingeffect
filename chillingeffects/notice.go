@@ -7,6 +7,8 @@ import (
 	"time"
 )
 
+// Notice is a chillingeffects.org notice.
+// All notice types are mapped to this struct.
 type Notice struct {
 	ID             int       `bson:"_id" json:"id"`
 	Type           string    `bson:"type,omitempty" json:"type"`
@@ -21,12 +23,13 @@ type Notice struct {
 	SenderName     string    `bson:"sender_name,omitempty" json:"sender_name"`
 	RecipientName  string    `bson:"recipient_name,omitempty" json:"recipient_name"`
 	PrincipalName  string    `bson:"principal_name,omitempty" json:"principal_name"`
-	Works          []Work    `bson:"works,omitempty" json:"works`
+	Works          []Work    `bson:"works,omitempty" json:"works"`
 	Marks          []Work    `bson:"marks,omitempty" json:"marks"`
 	Language       string    `bson:"language,omitempty" json:"language"`
 	LegalComplaint string    `bson:"legal_complaint,omitempty" json:"legal_complaint"`
 }
 
+// Work holds a list of URLs and a description about content the notice is about.
 type Work struct {
 	CopyrightedURLs []URL  `bson:"copyrighted_urls,omitempty" json:"copyrighted_urls"`
 	DefamatoryURLs  []URL  `bson:"defamatory_urls,omitempty" json:"defamatory_urls"`
@@ -34,10 +37,12 @@ type Work struct {
 	InfringingURLs  []URL  `bson:"infringing_urls,omitempty" json:"infringing_urls"`
 }
 
+// URL contains an url.
 type URL struct {
 	URL string `bson:"url,omitempty" json:"url"`
 }
 
+// RequestNotice gets the notice with the ID id from chillingeffects.org and maps the received notice to Notice.
 func RequestNotice(id int) (*Notice, error) {
 	url := fmt.Sprintf("https://chillingeffects.org/notices/%d.json", id)
 	resp, err := http.Get(url)
