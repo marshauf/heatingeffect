@@ -57,6 +57,10 @@ type IronIO struct {
 	Name     string `json:"name"`
 	Label    string `json:"label"`
 	Cluster  string `json:"cluster"`
+
+	// Settings
+	Token     string `json:"token"`
+	ProjectID string `json:"project_id"`
 }
 
 // NewConfig returns a decoded *Config from data.

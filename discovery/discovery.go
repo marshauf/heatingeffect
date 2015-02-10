@@ -12,6 +12,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	log "github.com/Sirupsen/logrus"
 	"github.com/codegangsta/cli"
+	ironconfig "github.com/iron-io/iron_go/config"
 	"github.com/iron-io/iron_go/worker"
 	"github.com/marshauf/heatingeffect/chillingeffects"
 	mgo "gopkg.in/mgo.v2"
@@ -131,9 +132,9 @@ func queueTasks(config *common.Config, latestHarvestedID, latestID int) error {
 	cc.IronIO = nil
 	schedules := make([]worker.Schedule, numSchedules)
 	n := 0
-	for i := latestHarvestedID; i <= latestID && n < numSchedules; i += config.RequestsPerWorker {
+	for i := latestHarvestedID + 1; i <= latestID && n < numSchedules; i += config.RequestsPerWorker {
 		low := i
-		high := i + config.RequestsPerWorker
+		high := i + config.RequestsPerWorker - 1
 		if high > latestID {
 			high = latestID
 		}
@@ -150,9 +151,14 @@ func queueTasks(config *common.Config, latestHarvestedID, latestID int) error {
 			Label:    config.IronIO.Label,
 			Cluster:  config.IronIO.Label,
 		}
+		log.Debugf("Added schedule for ID range: %d:%d", low, high)
 		n++
 	}
 	w := worker.New()
+	settings := ironconfig.Config("iron_worker")
+	settings.Token = config.IronIO.Token
+	settings.ProjectId = config.IronIO.ProjectID
+	w.Settings = settings
 	_, err := w.Schedule(schedules...)
 	return err
 }
